@@ -1,5 +1,6 @@
 package com.exam.model;
 
+import java.util.Collection;
 import java.util.HashSet;
 
 import java.util.Set;
@@ -13,12 +14,15 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 @Entity
 @Table(name = "user")
-public class User {
+public class User implements UserDetails {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -79,7 +83,7 @@ public class User {
 	public void setId(Long id) {
 		this.id = id;
 	}
-
+	
 	public String getUsername() {
 		return username;
 	}
@@ -134,6 +138,34 @@ public class User {
 
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
+	}
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		
+		Set<Authority> set = new HashSet<>();
+		this.userRole.forEach(userRole ->{
+			
+		});
+		return null;
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		// TODO Auto-generated method stub
+		return true;
 	}
 
 }
